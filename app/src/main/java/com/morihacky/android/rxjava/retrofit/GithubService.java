@@ -17,17 +17,19 @@ public class GithubService {
     }
 
     public static GithubApi createGithubService(final String githubToken) {
-        Retrofit.Builder builder = new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-              .addConverterFactory(GsonConverterFactory.create())
-              .baseUrl("https://api.github.com");
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://api.github.com");
 
         if (!TextUtils.isEmpty(githubToken)) {
 
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(chain -> {
                 Request request = chain.request();
                 Request newReq = request.newBuilder()
-                      .addHeader("Authorization", format("token %s", githubToken))
-                      .build();
+                        .addHeader("Authorization", format("token %s", githubToken))
+                        .build();
                 return chain.proceed(newReq);
             }).build();
 

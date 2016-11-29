@@ -9,8 +9,7 @@ import butterknife.ButterKnife;
 import com.morihacky.android.rxjava.R;
 import com.morihacky.android.rxjava.fragments.BaseFragment;
 
-public class RxBusDemoFragment
-      extends BaseFragment {
+public class RxBusDemoFragment  extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,

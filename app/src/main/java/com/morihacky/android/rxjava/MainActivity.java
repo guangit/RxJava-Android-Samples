@@ -3,13 +3,13 @@ package com.morihacky.android.rxjava;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+
 import com.morihacky.android.rxjava.fragments.MainFragment;
 import com.morihacky.android.rxjava.fragments.RotationPersist1WorkerFragment;
 import com.morihacky.android.rxjava.fragments.RotationPersist2WorkerFragment;
 import com.morihacky.android.rxjava.rxbus.RxBus;
 
-public class MainActivity
-      extends FragmentActivity {
+public class MainActivity extends FragmentActivity {
 
     private RxBus _rxBus = null;
 
@@ -25,8 +25,8 @@ public class MainActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                                       .replace(android.R.id.content, new MainFragment(), this.toString())
-                                       .commit();
+                    .replace(android.R.id.content, new MainFragment(), this.toString())
+                    .commit();
         }
     }
 
@@ -35,27 +35,28 @@ public class MainActivity
         if (_rxBus == null) {
             _rxBus = new RxBus();
         }
-
         return _rxBus;
     }
 
     private void _removeWorkerFragments() {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(RotationPersist1WorkerFragment.class.getName());
+        Fragment frag = getSupportFragmentManager()
+                .findFragmentByTag(RotationPersist1WorkerFragment.class.getName());
 
         if (frag != null) {
             getSupportFragmentManager()
-                  .beginTransaction()
-                  .remove(frag)
-                  .commit();
+                    .beginTransaction()
+                    .remove(frag)
+                    .commit();
         }
 
-        frag = getSupportFragmentManager().findFragmentByTag(RotationPersist2WorkerFragment.class.getName());
+        frag = getSupportFragmentManager()
+                .findFragmentByTag(RotationPersist2WorkerFragment.class.getName());
 
         if (frag != null) {
             getSupportFragmentManager()
-                  .beginTransaction()
-                  .remove(frag)
-                  .commit();
+                    .beginTransaction()
+                    .remove(frag)
+                    .commit();
         }
     }
 }

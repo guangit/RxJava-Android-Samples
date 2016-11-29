@@ -7,29 +7,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 import com.morihacky.android.rxjava.MainActivity;
 import com.morihacky.android.rxjava.R;
 import com.morihacky.android.rxjava.fragments.BaseFragment;
+
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RxBusDemo_Bottom2Fragment
-      extends BaseFragment {
+        extends BaseFragment {
 
-    @Bind(R.id.demo_rxbus_tap_txt) TextView _tapEventTxtShow;
-    @Bind(R.id.demo_rxbus_tap_count) TextView _tapEventCountShow;
+    @Bind(R.id.demo_rxbus_tap_txt)
+    TextView _tapEventTxtShow;
+    @Bind(R.id.demo_rxbus_tap_count)
+    TextView _tapEventCountShow;
 
     private RxBus _rxBus;
     private CompositeDisposable _disposables;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,  @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_rxbus_bottom, container, false);
         ButterKnife.bind(this, layout);
@@ -48,8 +53,8 @@ public class RxBusDemo_Bottom2Fragment
         _disposables = new CompositeDisposable();
 
         Flowable<Object> tapEventEmitter = _rxBus
-              .asFlowable()
-              .share();
+                .asFlowable()
+                .share();
 
         _disposables.add(tapEventEmitter.subscribe(event -> {
             if (event instanceof RxBusDemoFragment.TapEvent) {
@@ -61,10 +66,10 @@ public class RxBusDemo_Bottom2Fragment
         Flowable<List<Object>> debouncedBufferEmitter = tapEventEmitter.buffer(debouncedEmitter);
 
         _disposables.add(debouncedBufferEmitter
-                               .observeOn(AndroidSchedulers.mainThread())
-                               .subscribe(taps -> {
-                                   _showTapCount(taps.size());
-                               }));
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(taps -> {
+                    _showTapCount(taps.size());
+                }));
     }
 
     @Override
@@ -88,9 +93,9 @@ public class RxBusDemo_Bottom2Fragment
         _tapEventCountShow.setScaleX(1f);
         _tapEventCountShow.setScaleY(1f);
         ViewCompat.animate(_tapEventCountShow)
-              .scaleXBy(-1f)
-              .scaleYBy(-1f)
-              .setDuration(800)
-              .setStartDelay(100);
+                .scaleXBy(-1f)
+                .scaleYBy(-1f)
+                .setDuration(800)
+                .setStartDelay(100);
     }
 }
